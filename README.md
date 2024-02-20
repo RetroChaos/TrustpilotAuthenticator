@@ -1,9 +1,5 @@
 # Trustpilot Authenticator
 
-[![Latest Stable Version](https://poser.pugx.org/moneymaxim/trustpilot-authenticator/v/stable)](https://packagist.org/packages/moneymaxim/trustpilot-authenticator)
-[![Total Downloads](https://poser.pugx.org/moneymaxim/trustpilot-authenticator/downloads)](https://packagist.org/packages/moneymaxim/trustpilot-authenticator)
-[![License](https://poser.pugx.org/moneymaxim/trustpilot-authenticator/license)](https://packagist.org/packages/moneymaxim/trustpilot-authenticator)
-
 A PHP library for obtaining [Trustpilot Business User API](https://developers.trustpilot.com/authentication) access tokens.
 
 This library has been developed and open sourced by [moneymaxim](https://www.moneymaxim.co.uk).
