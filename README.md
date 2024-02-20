@@ -11,7 +11,7 @@ Updated the code to use Guzzle7
 Install using [composer](https://getcomposer.org/):
 
 ```sh
-composer install moneymaxim/trustpilot-authenticator
+composer install retrochaos/trustpilot-authenticator
 ```
 
 ## Usage
