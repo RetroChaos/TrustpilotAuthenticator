@@ -2,7 +2,7 @@
 
 A PHP library for obtaining [Trustpilot Business User API](https://developers.trustpilot.com/authentication) access tokens.
 
-This library has been developed and open sourced by [moneymaxim](https://www.moneymaxim.co.uk).
+This library was originally developed and open sourced by [moneymaxim](https://www.moneymaxim.co.uk).
 
 Updated the code to use Guzzle7
 
