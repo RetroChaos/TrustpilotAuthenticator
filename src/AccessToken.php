@@ -11,8 +11,9 @@ namespace Trustpilot\Api\Authenticator;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Exception;
+use Serializable;
 
-class AccessToken implements \Serializable
+class AccessToken implements Serializable
 {
     /**
      * @var string
