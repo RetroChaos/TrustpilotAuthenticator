@@ -50,11 +50,22 @@ class AccessToken implements \Serializable
         ]);
     }
 
+    public function __serialize(): ?string {
+      return serialize([
+                         'token'  => $this->token,
+                         'expiry' => $this->expiry,
+                       ]);
+    }
+
     /**
      * {@inheritdoc}
      */
     public function unserialize($serialized) {
         list($this->token, $this->expiry) = unserialize($serialized, ['allowed_classes' => [DateTimeImmutable::class]]);
+    }
+
+    public function __unserialize($serialized) {
+      list($this->token, $this->expiry) = unserialize($serialized, ['allowed_classes' => [DateTimeImmutable::class]]);
     }
 
     /**
@@ -76,5 +87,5 @@ class AccessToken implements \Serializable
      */
     public function getExpiry(): DateTimeImmutable {
         return $this->expiry;
-    }   
+    }
 }
