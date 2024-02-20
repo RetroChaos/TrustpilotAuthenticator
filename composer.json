@@ -2,14 +2,19 @@
     "name": "moneymaxim/trustpilot-authenticator",
     "description": "A PHP library for obtaining Trustpilot API access tokens",
     "require": {
-        "php": ">=5.5.0",
-        "guzzlehttp/guzzle": "~6.0"
+        "php": "^7.4 | ^8.0",
+        "guzzlehttp/guzzle": "^6.0 | ^7.0",
+        "ext-json": "*"
     },
     "license": "MIT",
     "authors": [
         {
             "name": "Andrew Carter",
             "email": "andrew.carter@moneymaxim.co.uk"
+        },
+        {
+            "name": "Sam Carnaby",
+            "email": "fc@retrochaos.com"
         }
     ],
     "autoload": {

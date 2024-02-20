@@ -8,38 +8,42 @@
 
 namespace Trustpilot\Api\Authenticator;
 
+use DateTimeImmutable;
+use DateTimeInterface;
+use Exception;
+
 class AccessToken implements \Serializable
 {
     /**
      * @var string
      */
-    private $token;
+    private string $token;
 
     /**
-     * @var \DateTimeImmutable
+     * @var DateTimeImmutable
      */
-    private $expiry;
+    private DateTimeImmutable $expiry;
 
-    /**
-     * @param string $token
-     * @param \DateTimeInterface $expiry
-     */
-    public function __construct($token, \DateTimeInterface $expiry)
+  /**
+   * @param string $token
+   * @param DateTimeInterface $expiry
+   * @throws Exception
+   */
+    public function __construct(string $token, DateTimeInterface $expiry)
     {
         $this->token = $token;
 
-        if ($expiry instanceof \DateTimeImmutable) {
+        if ($expiry instanceof DateTimeImmutable) {
             $this->expiry = $expiry;
         } else {
-            $this->expiry = new \DateTimeImmutable('@' .$expiry->getTimestamp());
+            $this->expiry = new DateTimeImmutable('@' .$expiry->getTimestamp());
         }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function serialize()
-    {
+    public function serialize(): ?string {
         return serialize([
             'token'  => $this->token,
             'expiry' => $this->expiry,
@@ -49,32 +53,28 @@ class AccessToken implements \Serializable
     /**
      * {@inheritdoc}
      */
-    public function unserialize($serialized)
-    {
-        list($this->token, $this->expiry) = unserialize($serialized, ['allowed_classes' => [\DateTimeImmutable::class]]);
+    public function unserialize($serialized) {
+        list($this->token, $this->expiry) = unserialize($serialized, ['allowed_classes' => [DateTimeImmutable::class]]);
     }
 
     /**
      * @return bool
      */
-    public function hasExpired()
-    {
+    public function hasExpired(): bool {
         return $this->expiry->getTimestamp() < time();
     }
 
     /**
      * @return string
      */
-    public function getToken()
-    {
+    public function getToken(): string {
         return $this->token;
     }
 
     /**
-     * @return \DateTimeImmutable
+     * @return DateTimeImmutable
      */
-    public function getExpiry()
-    {
+    public function getExpiry(): DateTimeImmutable {
         return $this->expiry;
     }   
 }

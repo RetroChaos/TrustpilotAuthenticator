@@ -8,7 +8,7 @@ A PHP library for obtaining [Trustpilot Business User API](https://developers.tr
 
 This library has been developed and open sourced by [moneymaxim](https://www.moneymaxim.co.uk).
 
-We are currently on the look out for PHP programming talent, so please [get in touch](mailto:andrew.carter@moneymaxim.co.uk) if you are interested.
+Updated the code to use Guzzle7
 
 ## Install
 
