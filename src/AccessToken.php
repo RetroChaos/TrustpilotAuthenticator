@@ -50,7 +50,7 @@ class AccessToken implements \Serializable
         ]);
     }
 
-    public function __serialize(): ?string {
+    public function __serialize() {
       return serialize([
                          'token'  => $this->token,
                          'expiry' => $this->expiry,
