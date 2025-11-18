@@ -12,11 +12,11 @@ use Trustpilot\Api\Authenticator\AuthenticatorException;
 
 class AuthenticatorTest extends TestCase
 {
-	private const API_KEY    = 'api-key';
+	private const API_KEY = 'api-key';
 	private const API_SECRET = 'api-secret';
-	private const USERNAME   = 'user@example.com';
-	private const PASSWORD   = 'secret';
-	private const REDIRECT   = 'https://example.com/callback';
+	private const USERNAME = 'user@example.com';
+	private const PASSWORD = 'secret';
+	private const REDIRECT = 'https://example.com/callback';
 
 	/**
 	 * Helper: Authenticator with a single canned response.
@@ -29,13 +29,17 @@ class AuthenticatorTest extends TestCase
 		return new Authenticator($client);
 	}
 
+	/**
+	 * @throws AuthenticatorException
+	 * @throws \JsonException
+	 */
 	public function testRequestPasswordAccessTokenSuccess(): void
 	{
 		$expiresIn = 3600;
 
 		$body = json_encode([
-			'access_token'  => 'abc123',
-			'expires_in'    => $expiresIn,
+			'access_token' => 'abc123',
+			'expires_in' => $expiresIn,
 			'refresh_token' => 'refresh123',
 		], JSON_THROW_ON_ERROR);
 
@@ -65,11 +69,15 @@ class AuthenticatorTest extends TestCase
 		}
 	}
 
+	/**
+	 * @throws AuthenticatorException
+	 * @throws \JsonException
+	 */
 	public function testRequestClientCredentialsAccessTokenSuccess(): void
 	{
 		$body = json_encode([
 			'access_token' => 'client-token',
-			'expires_in'   => 7200,
+			'expires_in' => 7200,
 		], JSON_THROW_ON_ERROR);
 
 		$authenticator = $this->createAuthenticatorWithResponse(200, $body);
@@ -134,6 +142,9 @@ class AuthenticatorTest extends TestCase
 		);
 	}
 
+	/**
+	 * @throws \JsonException
+	 */
 	public function testMissingAccessTokenFieldThrowsAuthenticatorException(): void
 	{
 		$body = json_encode([
@@ -174,6 +185,9 @@ class AuthenticatorTest extends TestCase
 		);
 	}
 
+	/**
+	 * @throws AuthenticatorException
+	 */
 	public function testRevokeRefreshTokenSuccess(): void
 	{
 		$response = new MockResponse('', ['http_code' => 200]);
@@ -204,7 +218,7 @@ class AuthenticatorTest extends TestCase
 
 	public function testBuildAuthorizationUrl(): void
 	{
-		$client        = new MockHttpClient(); // not actually used
+		$client = new MockHttpClient();
 		$authenticator = new Authenticator($client);
 
 		$url = $authenticator->buildAuthorizationUrl(
