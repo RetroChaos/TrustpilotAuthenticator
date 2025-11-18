@@ -1,92 +1,38 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace Trustpilot\Api\Authenticator;
 
-use DateTimeImmutable;
-use DateTimeInterface;
-use Exception;
-use Serializable;
-
-class AccessToken implements Serializable
+class AccessToken
 {
-    /**
-     * @var string
-     */
-    private string $token;
+	private string $token;
+	private \DateTimeInterface $expiry;
+	private ?string $refreshToken;
 
-    /**
-     * @var DateTimeImmutable
-     */
-    private DateTimeImmutable $expiry;
+	public function __construct(string $token, \DateTimeInterface $expiry, ?string $refreshToken = null) {
+		$this->token        = $token;
+		$this->expiry       = $expiry;
+		$this->refreshToken = $refreshToken;
+	}
 
-  /**
-   * @param string $token
-   * @param DateTimeInterface $expiry
-   * @throws Exception
-   */
-    public function __construct(string $token, DateTimeInterface $expiry)
-    {
-        $this->token = $token;
+	public function getToken(): string
+	{
+		return $this->token;
+	}
 
-        if ($expiry instanceof DateTimeImmutable) {
-            $this->expiry = $expiry;
-        } else {
-            $this->expiry = new DateTimeImmutable('@' .$expiry->getTimestamp());
-        }
-    }
+	public function getExpiry(): \DateTimeInterface
+	{
+		return $this->expiry;
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function serialize(): ?string {
-        return serialize([
-            'token'  => $this->token,
-            'expiry' => $this->expiry,
-        ]);
-    }
+	public function getRefreshToken(): ?string
+	{
+		return $this->refreshToken;
+	}
 
-    public function __serialize() {
-      return serialize([
-                         'token'  => $this->token,
-                         'expiry' => $this->expiry,
-                       ]);
-    }
+	public function isExpired(?\DateTimeInterface $reference = null): bool
+	{
+		$reference = $reference ?? new \DateTimeImmutable('now');
 
-    /**
-     * {@inheritdoc}
-     */
-    public function unserialize($serialized) {
-        list($this->token, $this->expiry) = unserialize($serialized, ['allowed_classes' => [DateTimeImmutable::class]]);
-    }
-
-    public function __unserialize($serialized) {
-      list($this->token, $this->expiry) = unserialize($serialized, ['allowed_classes' => [DateTimeImmutable::class]]);
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasExpired(): bool {
-        return $this->expiry->getTimestamp() < time();
-    }
-
-    /**
-     * @return string
-     */
-    public function getToken(): string {
-        return $this->token;
-    }
-
-    /**
-     * @return DateTimeImmutable
-     */
-    public function getExpiry(): DateTimeImmutable {
-        return $this->expiry;
-    }
+		return $this->expiry <= $reference;
+	}
 }

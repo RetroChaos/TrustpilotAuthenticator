@@ -2,9 +2,9 @@
     "name": "retrochaos/trustpilot-authenticator",
     "description": "A PHP library for obtaining Trustpilot API access tokens",
     "require": {
-        "php": "^7.4 | ^8.0",
-        "guzzlehttp/guzzle": "^6.0 | ^7.0",
-        "ext-json": "*"
+        "ext-json": "*",
+        "php": ">= 8.2",
+        "symfony/http-client": "^7.3"
     },
     "license": "MIT",
     "authors": [
@@ -24,8 +24,10 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Trustpilot\\Test\\Api\\Authenticator\\": "test/"
+            "Trustpilot\\Test\\Api\\Authenticator\\": "tests/"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.4"
     }
 }
-
